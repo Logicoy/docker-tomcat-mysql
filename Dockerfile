@@ -12,7 +12,7 @@ ENV OPENEMPI_CONFIG=/opt/openempi/conf
 RUN apt-get update && apt-get install -y lsb-release && \
   wget https://dev.mysql.com/get/mysql-apt-config_0.8.4-1_all.deb && \
   dpkg -i mysql-apt-config_0.8.4-1_all.deb && rm -f mysql-apt-config_0.8.4-1_all.deb && \
-  mkdir -p $TOMCAT_HOME && cd /opt && \
+  mkdir -p $TOMCAT_HOME && mkdir -p $OPENEMPI_HOME && mkdir -p $OPENEMPI_CONFIG && cd /opt && \
   wget https://archive.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR_VERSION/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz && \
   tar -xvf apache-tomcat-$TOMCAT_VERSION.tar.gz && rm -f apache-tomcat-$TOMCAT_VERSION.tar.gz
 
@@ -46,7 +46,8 @@ VOLUME  ["/etc/mysql", "/var/lib/mysql"]
 
 EXPOSE 8080 3306
 
-COPY conf/ $OPENEMPI_HOME/conf/
+
+COPY conf/ /opt/openempi/conf
 CMD cd $OPENEMPI_HOME
 CMD touch openempi.log
 CMD chmod 755 openempi.log
