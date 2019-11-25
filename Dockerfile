@@ -37,16 +37,14 @@ ADD supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
 RUN rm -rf /var/lib/mysql/*
 
 # Add MySQL utils
-ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
-ADD mysql-setup.sh /mysql-setup.sh
+# ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
 RUN chmod 755 /*.sh
-
 WORKDIR $TOMCAT_HOME
 
 # Add volumes for MySQL 
 VOLUME  ["/etc/mysql", "/var/lib/mysql"]
 
-EXPOSE 8080 3306
+EXPOSE 8080
 
 
 COPY conf/ /opt/openempi/conf
