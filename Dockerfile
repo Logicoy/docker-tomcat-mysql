@@ -10,16 +10,19 @@ ENV OPENEMPI_CONFIG=/opt/openempi/conf
 
 # Install mysql-server and tomcat 9
 RUN apt-get update && apt-get install -y lsb-release && \
-  wget https://dev.mysql.com/get/mysql-apt-config_0.8.4-1_all.deb && \
-  dpkg -i mysql-apt-config_0.8.4-1_all.deb && rm -f mysql-apt-config_0.8.4-1_all.deb && \
   mkdir -p $TOMCAT_HOME && mkdir -p $OPENEMPI_HOME && mkdir -p $OPENEMPI_CONFIG && cd /opt && \
   wget https://archive.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR_VERSION/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz && \
   tar -xvf apache-tomcat-$TOMCAT_VERSION.tar.gz && rm -f apache-tomcat-$TOMCAT_VERSION.tar.gz
 
-# Install packages
-RUN apt-get -y install mysql-server pwgen supervisor && \
-  apt-get clean && \
-  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# # Install packages
+# RUN apt-get -y install mysql-server pwgen supervisor && \
+#   apt-get clean && \
+#   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server python-mysqldb
+
 
 # Add image configuration and scripts
 ADD start-tomcat.sh /start-tomcat.sh
