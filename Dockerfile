@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y lsb-release && \
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server python-mysqldb
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server-4.1 python-mysqldb
 
 
 # Add image configuration and scripts
