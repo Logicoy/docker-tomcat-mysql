@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y lsb-release && \
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install python
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install mysql-server python-mysqldb
-
+RUN mysqld
 
 # Add image configuration and scripts
 ADD start-tomcat.sh /start-tomcat.sh
@@ -34,11 +34,12 @@ ADD supervisord-tomcat.conf /etc/supervisor/conf.d/supervisord-tomcat.conf
 ADD supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
 
 # Remove pre-installed database
-RUN rm -rf /var/lib/mysql/*
 
 # Add MySQL utils
-# ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
+ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
+ADD mysql-setup.sh /mysql-setup.sh
 RUN chmod 755 /*.sh
+
 WORKDIR $TOMCAT_HOME
 
 # Add volumes for MySQL 
