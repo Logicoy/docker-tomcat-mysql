@@ -9,7 +9,7 @@ ENV OPENEMPI_CONFIG=/opt/openempi/conf
 
 
 # Install mysql-server and tomcat 9
-RUN apt-get update && apt-get install -y lsb-release && apt-get --allow-unauthenticated && \
+RUN apt-get update && apt-get install -y lsb-release && \
   wget https://dev.mysql.com/get/mysql-apt-config_0.8.4-1_all.deb && \
   dpkg -i mysql-apt-config_0.8.4-1_all.deb && rm -f mysql-apt-config_0.8.4-1_all.deb && \
   mkdir -p $TOMCAT_HOME && mkdir -p $OPENEMPI_HOME && mkdir -p $OPENEMPI_CONFIG && cd /opt && \
@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y lsb-release && apt-get --allow-unauthen
 
 # Install packages
 RUN apt-get update && \
-  apt-get -y install mysql-server pwgen supervisor && apt-get --allow-unauthenticated &&\
+  apt-get -y install mysql-server pwgen supervisor && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
