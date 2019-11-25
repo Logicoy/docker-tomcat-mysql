@@ -17,8 +17,7 @@ RUN apt-get update && apt-get install -y lsb-release && \
   tar -xvf apache-tomcat-$TOMCAT_VERSION.tar.gz && rm -f apache-tomcat-$TOMCAT_VERSION.tar.gz
 
 # Install packages
-RUN apt-get update && \
-  apt-get -y install mysql-server pwgen supervisor && \
+RUN apt-get -y install mysql-server pwgen supervisor && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
